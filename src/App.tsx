@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar';
+import unsplash from './components/unsplash';
+import ImageList from './components/ImageList';
+import Add from './components/AddImg';
+import Delete from './components/DeleteImg';
 
 function App() {
+  let [images, setImages] = useState([]);
+  const onSearchSubmit = async (text:string) => {
+    const response = await unsplash.get('search/photos', {
+      params: { query: text },
+    });
+    setImages(response.data.results);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ marginTop: '10px' }}>
+      <SearchBar runOnSubmit={onSearchSubmit} />
+      <p className="text-3xl font-bold underline">Found:{images.length}</p>
+      <Add />
+      <Delete />
+      <ImageList images={images} />
     </div>
   );
 }
