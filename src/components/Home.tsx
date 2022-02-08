@@ -15,7 +15,13 @@ type StateType = {
 class Home extends React.Component<Props> {
   state: StateType = { 'images': [], 'selected_images': [] };
   onSearchSubmit = async (text: string) => {
-
+    if (text) {
+      this.setState({ images: this.props.images.filter(image => image.title == text) });
+    }
+    else {
+      this.setState({ images: this.props.images });
+    }
+    this.setState({ selected_images: [] });
   }
   async componentDidMount() {
     if (this.props.images.length == 0) {
@@ -54,7 +60,7 @@ class Home extends React.Component<Props> {
   sort = (e: any) => {
     switch (e.target.value) {
       case '1':
-        this.setState({ 'images': (this.state.images.sort((i1, i2) => (i1.description > i2.description ? 1 : -1))) });
+        this.setState({ 'images': (this.state.images.sort((i1, i2) => (i1.title >= i2.title ? 1 : -1))) });
         break;
       case '2':
         this.setState({ 'images': (this.state.images.sort((i1, i2) => (i1.created_at > i2.created_at ? 1 : -1))) });

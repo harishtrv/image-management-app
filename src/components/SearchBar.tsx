@@ -17,7 +17,7 @@ class SearchBar extends React.Component<{ runOnSubmit: Function }, { text: strin
               <AiOutlineSearch className="absolute h-10 w-5" />
             </label>
             <input type='text'
-              className="h-10 w-96 pr-8 pl-5 rounded z-0 bg-amber-100 focus:shadow focus:outline-none"
+              className="h-10 pr-8 pl-5 rounded z-0 bg-amber-100 focus:shadow focus:outline-none"
               placeholder="Search anything..."
               value={this.state.text}
               onChange={(e) => this.setState({ text: e.target.value })}></input>
