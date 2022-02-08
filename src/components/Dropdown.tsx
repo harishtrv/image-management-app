@@ -15,7 +15,7 @@ class DropDown extends React.Component<Props> {
   }
   render() {
     return (
-      <select className="m-2 py-2 px-4 cursor-pointer" onChange={(e) => this.props.onChangeEvent(e)}>
+      <select className="m-2 px-1 py-1 md:py-2 md:px-4 cursor-pointer" onChange={(e) => this.props.onChangeEvent(e)}>
         <option key='' value="">Sort By</option>
         {this.getList()}
       </select>

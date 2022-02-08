@@ -50,7 +50,7 @@ class Home extends React.Component<Props> {
       }
       return <ImageCard key={image.id} image={image} selected={false} onClickEvent={this.storeSelectedImageToList} />;
     })
-    return <div className="grid grid-cols-4 gap-10px">{images}</div>;
+    return <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10px">{images}</div>;
   }
 
   selectAll = () => {
@@ -77,9 +77,9 @@ class Home extends React.Component<Props> {
     let items = [{ name: 'Title', value: 1 }, { name: 'Date', value: 2 }, { name: 'Size', value: 3 }];
     return (
       <div style={{ marginTop: '10px' }}>
-        <h1 className="pl-5 pt-3 pb-3 text-4xl">Media Library</h1>
-        <div className='flex flex-row pl-5 pt3 m-3 items-center'>
-          <SearchBar runOnSubmit={this.onSearchSubmit} />
+        <h1 className="pl-5 pt-3 pb-1 text-4xl">Media Library</h1>
+        <SearchBar runOnSubmit={this.onSearchSubmit} />
+        <div className='flex flex-row pl-4 m-3 items-center'>
           <AddImg />
           <Delete status={this.state.selected_images.length > 0} onDeleteClick={this.onDeleteClick} />
           <SelectAll selectAll={this.selectAll} />

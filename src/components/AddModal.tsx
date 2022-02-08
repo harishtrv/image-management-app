@@ -25,7 +25,7 @@ class AddModal extends React.Component<Props> {
     });
     return (<div className="flex flex-col">
       <div className=""><SearchBar runOnSubmit={this.onSearchSubmit} /></div>
-      <div className="grid grid-cols-5 gap-10px">{imagesList}</div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-10px">{imagesList}</div>
     </div>);
   }
   previewImage = () => {
