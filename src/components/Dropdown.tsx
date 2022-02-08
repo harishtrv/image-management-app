@@ -1,0 +1,26 @@
+import React from 'react';
+
+type Items = {
+  name: string;
+  value: number;
+}
+type Props = {
+  items: Items[];
+  onChangeEvent: (e: any) => void;
+}
+class DropDown extends React.Component<Props> {
+  getList = () => {
+    let result = this.props.items.map(item => (<option key={item.value} value={item.value}>{item.name}</option>));
+    return result;
+  }
+  render() {
+    return (
+      <select className="m-2 py-2 px-4 cursor-pointer" onChange={(e) => this.props.onChangeEvent(e)}>
+        <option key='' value="">Sort By</option>
+        {this.getList()}
+      </select>
+    );
+  }
+}
+
+export default DropDown;

@@ -1,20 +1,21 @@
 import React from 'react';
 type url = { regular: string };
-type img = { description: string, urls: url }
+type img = { description: string, urls: url, id: string, title: string };
 interface IProps {
   image: img;
+  onClickEvent: (e: any) => void;
+  selected: boolean;
 }
 
 interface IState {
   spans: number;
-  selected: boolean;
 }
 class ImageCard extends React.Component<IProps, IState>{
   imageRef: React.RefObject<any>;
   constructor(props: IProps) {
     super(props);
     this.imageRef = React.createRef();
-    this.state = { spans: 0, selected: false };
+    this.state = { spans: 0 };
   }
   componentDidMount() {
     this.imageRef.current.addEventListener('load', this.setSpans);
@@ -24,18 +25,20 @@ class ImageCard extends React.Component<IProps, IState>{
     const spans = Math.ceil(height / 10) + 1;
     this.setState({ spans });
   }
-  onClick = () => {
-    this.setState({selected: !this.state.selected});
+  onClick = (e: any) => {
+    this.props.onClickEvent(e);
   }
   render() {
-    const { description, urls } = this.props.image;
+    const { description, urls, id, title } = this.props.image;
     return (
-      <div className="w-full h-full" style={{ gridRowEnd: `span ${this.state.spans}` }}>
-        <img className="m-1 object-scale-down h-48 w-full border-2 border-none-400 rounded-lg" ref={this.imageRef} alt={description}
+      <div>
+        <img className="m-1 h-32 w-full border-2 border-none-700 rounded-lg" ref={this.imageRef} alt={description}
           src={urls.regular}
-          onClick={this.onClick}
-          style={{borderColor: `${this.state.selected ? 'blue' : ''}`}}
+          onClick={(e) => this.onClick(e)}
+          style={{ borderColor: `${this.props.selected ? 'blue' : ''}` }}
+          id={id}
         />
+        <h1 className="m-1 w-full text-center">{title}</h1>
       </div>
     );
   }

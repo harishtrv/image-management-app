@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const AddImg = () => {
   return (
     <div>
-      <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Image</button>
+      <Link to='/add' className="m-2 py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">Add Image</Link>
     </div>
   )
 }
