@@ -40,7 +40,7 @@ class AddModal extends React.Component<Props> {
     );
   }
   storeSelectedImageToList = async (e: any) => {
-    const tempImage = await this.state.images.filter((item: any) => item.id == e.target.id);
+    const tempImage = await this.state.images.filter((item: any) => item.id === e.target.id);
     this.setState({ 'newImage': tempImage[0] });
     this.setState({ 'preview': true });
   }

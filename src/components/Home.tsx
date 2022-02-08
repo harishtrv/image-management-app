@@ -16,7 +16,7 @@ class Home extends React.Component<Props> {
   state: StateType = { 'images': [], 'selected_images': [] };
   onSearchSubmit = async (text: string) => {
     if (text) {
-      this.setState({ images: this.props.images.filter(image => image.title == text) });
+      this.setState({ images: this.props.images.filter(image => image.title === text) });
     }
     else {
       this.setState({ images: this.props.images });
@@ -24,7 +24,7 @@ class Home extends React.Component<Props> {
     this.setState({ selected_images: [] });
   }
   async componentDidMount() {
-    if (this.props.images.length == 0) {
+    if (this.props.images.length === 0) {
       await this.props.createImageList();
     }
     this.setState({ 'images': this.props.images });
@@ -38,7 +38,7 @@ class Home extends React.Component<Props> {
     }
   }
   onDeleteClick = async () => {
-    if (this.state.selected_images.length == 0) return;
+    if (this.state.selected_images.length === 0) return;
     await this.props.deleteImages(this.state.selected_images);
     this.setState({ images: this.props.images });
     this.setState({ selected_images: [] })
