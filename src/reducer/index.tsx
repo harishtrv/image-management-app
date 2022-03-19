@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-
+import {ImageObject} from '../responseType';
 type Action = {
   type: string;
   payload: any;
@@ -7,7 +7,7 @@ type Action = {
 type Item = {
   id: string;
 }
-const ImagesReducer = (state = [], action: Action) => {
+const ImagesReducer = (state: ImageObject[] = [], action: Action) => {
   let payload = action.payload;
   switch (action.type) {
     case 'ADD_IMAGE':

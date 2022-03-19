@@ -7,13 +7,17 @@ import { createImageList, deleteImages } from '../actions/index';
 import ImageCard from './ImageCard';
 import SelectAll from './SelectAll';
 import DropDown from './Dropdown';
-
+import { ImageObject } from '../responseType';
 type StateType = {
-  images: any[];
+  images: ImageObject[];
   selected_images: string[]
 }
+type Item = {
+  name: string;
+  value: number;
+}
 class Home extends React.Component<Props> {
-  state: StateType = { 'images': [], 'selected_images': [] };
+  state: StateType = { images: [], selected_images: [] };
   onSearchSubmit = async (text: string) => {
     if (text) {
       this.setState({ images: this.props.images.filter(image => image.title === text) });
@@ -44,7 +48,7 @@ class Home extends React.Component<Props> {
     this.setState({ selected_images: [] })
   }
   imageList = () => {
-    const images = this.state.images.map((image) => {
+    const images: JSX.Element[] = this.state.images.map((image) => {
       if (this.state.selected_images.includes(image.id)) {
         return <ImageCard key={image.id} image={image} selected={true} onClickEvent={this.storeSelectedImageToList} />;
       }
@@ -54,7 +58,7 @@ class Home extends React.Component<Props> {
   }
 
   selectAll = () => {
-    let result = this.state.images.map(item => item.id);
+    let result: string[] = this.state.images.map(item => item.id);
     this.setState({ 'selected_images': result });
   }
   sort = (e: any) => {
@@ -74,7 +78,7 @@ class Home extends React.Component<Props> {
   }
 
   render() {
-    let items = [{ name: 'Title', value: 1 }, { name: 'Date', value: 2 }, { name: 'Size', value: 3 }];
+    let items:Item[]  = [{ name: 'Title', value: 1 }, { name: 'Date', value: 2 }, { name: 'Size', value: 3 }];
     return (
       <div style={{ marginTop: '10px' }}>
         <h1 className="pl-5 pt-3 pb-1 text-4xl">Media Library</h1>
@@ -99,7 +103,7 @@ const mapDispatchToProps = {
   deleteImages
 }
 type statePorps = {
-  images: any[];
+  images: ImageObject[];
 }
 type dispatchProps = {
   createImageList: () => void;

@@ -1,8 +1,11 @@
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-class SearchBar extends React.Component<{ runOnSubmit: Function }, { text: string }>{
-  state = { text: '' }
+interface stateType{
+  text: string;
+}
+class SearchBar extends React.Component<{ runOnSubmit: (text: string) => Promise<void> }>{
+  state: stateType = { text: '' }
   onFormSubmit = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
     this.props.runOnSubmit(this.state.text);

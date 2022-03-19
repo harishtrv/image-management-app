@@ -1,9 +1,12 @@
 import unsplash from '../components/unsplash'
-export const createImageList = () => async (dispatch: any) => {
-  let { data } = await unsplash.get('/photos', {
+import { ImageObject } from '../responseType';
+
+export const createImageList = () => async (dispatch: (arg0: { type: string; payload: ImageObject[]; }) => void) => {
+  const res = await unsplash.get('/photos', {
     params: { per_page: 20 }
   });
-  data = data.map((item: any) => {
+  let data: ImageObject[] = res.data;
+  data = data.map((item: ImageObject) => {
     if (item.description) {
       const desc = item.description.split(" ");
       if (desc[0].length > 128) {
@@ -21,11 +24,11 @@ export const createImageList = () => async (dispatch: any) => {
   dispatch({ type: 'CREATE_LIST', payload: data });
 };
 
-export const addImage = (image: any) => async (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const addImage = (image: ImageObject) => async (dispatch: (arg0: { type: string; payload: ImageObject; }) => void) => {
   if (image.description) {
-    const desc = image.description.split(" ");
+    const desc: string[] = image.description.split(" ");
     if (desc[0].length > 128) {
-      image.title = desc[0].subString(0, 128);
+      image.title = desc[0].substring(0, 128);
     }
     else {
       image.title = desc[0];
@@ -37,7 +40,7 @@ export const addImage = (image: any) => async (dispatch: (arg0: { type: string; 
   dispatch({ type: 'ADD_IMAGE', payload: image });
 }
 
-export const deleteImages = (selectedIds: string[]) => async (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const deleteImages = (selectedIds: string[]) => async (dispatch: (arg0: { type: string; payload: string[]; }) => void) => {
 
   dispatch({ type: 'DELETE_IMAGES', payload: selectedIds })
 }

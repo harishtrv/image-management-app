@@ -6,12 +6,17 @@ import Modal from './Modal';
 import { useNavigate } from 'react-router-dom';
 import { addImage } from '../actions/index';
 import { connect } from 'react-redux';
+import { ImageObject } from '../responseType';
 
-type url = { regular: string };
-type img = { description: string, urls: url, id: string, title: string };
+interface stateType {
+  images: ImageObject[],
+  preview: boolean,
+  newImage: ImageObject,
+  showSucessMessage: boolean
+}
 class AddModal extends React.Component<Props> {
-  initial: img = { description: '', urls: { regular: '' }, id: '1', title: '' }
-  state = { 'images': [], 'preview': false, newImage: this.initial, showSucessMessage: false };
+  initial: any = { description: '', urls: { regular: '' }, id: '1', title: '' }
+  state: stateType = { images: [], preview: false, newImage: this.initial, showSucessMessage: false };
 
   onSearchSubmit = async (text: string) => {
     const response = await unsplash.get('search/photos', {
@@ -20,7 +25,7 @@ class AddModal extends React.Component<Props> {
     this.setState({ 'images': response.data.results });
   }
   showImges = () => {
-    const imagesList = this.state.images.map((image: any) => {
+    const imagesList: JSX.Element[] = this.state.images.map((image: any) => {
       return (<ImageCard selected={false} key={image.id} image={image} onClickEvent={this.storeSelectedImageToList} />);
     });
     return (<div className="flex flex-col">
@@ -40,7 +45,7 @@ class AddModal extends React.Component<Props> {
     );
   }
   storeSelectedImageToList = async (e: any) => {
-    const tempImage = await this.state.images.filter((item: any) => item.id === e.target.id);
+    const tempImage = await this.state.images.filter((item: ImageObject) => item.id === e.target.id);
     this.setState({ 'newImage': tempImage[0] });
     this.setState({ 'preview': true });
   }

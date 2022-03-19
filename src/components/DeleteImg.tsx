@@ -1,6 +1,10 @@
 import React from 'react'
 
-const DeleteImg = (param: any) => {
+interface Props{
+  onDeleteClick: () => Promise<void>;
+  status: boolean;
+}
+const DeleteImg: React.FC<Props> = (param: any) => {
   return (
     <div>
       <button onClick={param.onDeleteClick}

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-const modalRoot = document.getElementById("modal") as HTMLElement;
+const modalRoot: HTMLElement = document.getElementById("modal") as HTMLElement;
 const Modal = (props: any) => {
   return ReactDOM.createPortal(
     <div onClick={props.onDismiss}

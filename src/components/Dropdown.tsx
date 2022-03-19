@@ -1,16 +1,16 @@
 import React from 'react';
 
-type Items = {
+type Item = {
   name: string;
   value: number;
 }
 type Props = {
-  items: Items[];
+  items: Item[];
   onChangeEvent: (e: any) => void;
 }
 class DropDown extends React.Component<Props> {
   getList = () => {
-    let result = this.props.items.map(item => (<option key={item.value} value={item.value}>{item.name}</option>));
+    let result: JSX.Element[] = this.props.items.map(item => (<option key={item.value} value={item.value}>{item.name}</option>));
     return result;
   }
   render() {
